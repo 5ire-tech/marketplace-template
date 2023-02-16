@@ -1,13 +1,21 @@
 import axios from 'axios'
 import { ChangeEvent, useRef, useState } from 'react'
 import { toast } from 'react-toastify'
+import { useWeb3React } from '@web3-react/core'
 import { Typography } from '@mui/material'
+import useContract from '@/hooks/useContract'
 import Button from '../Commons/Button'
 import FlexBox from '../Commons/FlexBox'
 import Loader from '../Commons/Loader'
 import { MintNFTContainer, NFTImage } from './styles'
 
+const initImgUrl = '/assets/imgs/no_img.jpeg'
+// const tokenPrice = process.env.tokenPrice as string
+
 const MintNFT = () => {
+  const { account } = useWeb3React()
+  const { web3, nftContract } = useContract()
+
   const inputRef = useRef<HTMLInputElement | null>(null)
 
   const [isUploading, setIsUploading] = useState(false)
@@ -29,20 +37,35 @@ const MintNFT = () => {
   }
 
   const onMint = async () => {
-    if (!selectedFile) return
+    if (!selectedFile) {
+      toast.error('Please select a file to mint')
+      return
+    }
+
+    if (typeof account !== 'string') {
+      toast.error('Please connect wallet')
+      return
+    }
 
     setIsUploading(true)
 
     try {
       const formData = new FormData()
       formData.append('myNFT', selectedFile)
-      const { data } = await axios.post('/api/image', formData)
-      if (data.status === 200) {
-        toast.success('Mint successfully!')
-      }
+      await axios.post('/api/image', formData)
+
+      const price = web3.utils.fromWei('0.0001')
+      console.log(price)
+      await nftContract.methods
+        .createToken(imageUrl, price)
+        .send({ from: account })
+
+      toast.success('Mint successfully!')
     } catch (error: any) {
-      toast.error(error.response?.data)
+      toast.error(error?.message)
     }
+    setImageUrl(initImgUrl)
+    // setSelectedFile(undefined)
     setIsUploading(false)
   }
 
@@ -61,7 +84,7 @@ const MintNFT = () => {
             Select an NFT:
           </Typography>
           <NFTImage
-            src={imageUrl ? imageUrl : '/assets/imgs/no_img.jpeg'}
+            src={imageUrl ? imageUrl : initImgUrl}
             width={400}
             height={400}
             priority={imageUrl ? false : true}
