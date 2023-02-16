@@ -1,8 +1,9 @@
-import * as React from 'react'
 import Head from 'next/head'
 import type { AppProps } from 'next/app'
+import { ToastContainer } from 'react-toastify'
 import { CacheProvider, EmotionCache } from '@emotion/react'
 import { ThemeProvider, CssBaseline, createTheme } from '@mui/material'
+import 'react-toastify/dist/ReactToastify.css'
 
 import createEmotionCache from '../utility/createEmotionCache'
 import theme from '../styles/theme'
@@ -27,6 +28,7 @@ const MyApp = (props: MyAppProps) => {
         <CssBaseline />
         <Component {...pageProps} />
       </ThemeProvider>
+      <ToastContainer position='top-right' autoClose={4000} />
     </CacheProvider>
   )
 }

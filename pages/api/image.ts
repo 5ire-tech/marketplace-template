@@ -16,7 +16,7 @@ const readFile = (
   const options: formidable.Options = {}
 
   if (saveLocally) {
-    options.uploadDir = path.join(process.cwd(), '/public/assets/nfts')
+    options.uploadDir = path.join(process.cwd(), '/public/nfts')
     options.filename = (name, ext, _path) => {
       return Date.now().toString() + '_' + _path.originalFilename
     }
@@ -33,12 +33,12 @@ const readFile = (
 
 const handler: NextApiHandler = async (req, res) => {
   try {
-    await fs.readdir(path.join(process.cwd() + 'public', '/assets/nfts'))
+    await fs.readdir(path.join(process.cwd() + '/public', '/nfts'))
   } catch (error) {
-    await fs.mkdir(path.join(process.cwd() + 'public', '/assets/nfts'))
+    await fs.mkdir(path.join(process.cwd() + '/public', '/nfts'))
   }
   await readFile(req, true)
-  res.json({ done: 'Ok' })
+  res.json({ status: 200 })
 }
 
 export default handler

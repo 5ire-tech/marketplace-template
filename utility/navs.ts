@@ -5,7 +5,7 @@ const navs = [
   },
   {
     title: 'My NFTs',
-    link: '/services',
+    link: '/my-nfts',
   },
   {
     title: 'All NFTs',
