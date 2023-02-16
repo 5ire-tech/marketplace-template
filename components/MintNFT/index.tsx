@@ -10,7 +10,7 @@ import Loader from '../Commons/Loader'
 import { MintNFTContainer, NFTImage } from './styles'
 
 const initImgUrl = '/assets/imgs/no_img.jpeg'
-// const tokenPrice = process.env.tokenPrice as string
+const tokenPrice = process.env.tokenPrice as string
 
 const MintNFT = () => {
   const { account } = useWeb3React()
@@ -54,18 +54,18 @@ const MintNFT = () => {
       formData.append('myNFT', selectedFile)
       await axios.post('/api/image', formData)
 
-      const price = web3.utils.fromWei('0.0001')
-      console.log(price)
+      const price = web3.utils.toWei(tokenPrice)
+
       await nftContract.methods
         .createToken(imageUrl, price)
-        .send({ from: account })
+        .send({ from: account, value: price })
 
       toast.success('Mint successfully!')
+      setImageUrl(initImgUrl)
+      setSelectedFile(undefined)
     } catch (error: any) {
       toast.error(error?.message)
     }
-    setImageUrl(initImgUrl)
-    // setSelectedFile(undefined)
     setIsUploading(false)
   }
 
