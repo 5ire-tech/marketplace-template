@@ -1,17 +1,14 @@
 import Link from 'next/link'
-import { useCallback, useState } from 'react'
+import { useState } from 'react'
 import { toast } from 'react-toastify'
 import { useWeb3React } from '@web3-react/core'
-import { Button as BaseButton, Typography, useMediaQuery } from '@mui/material'
+import { Typography, useMediaQuery } from '@mui/material'
 import navs from '@/utility/navs'
 import { injected } from '@/utility/web3React'
 import getAddress from '@/utility/getAddress'
 import Button from '../Commons/Button'
-import FlexBox from '../Commons/FlexBox'
 import Loader from '../Commons/Loader'
-import Sidebar from './Sidebar'
 import { HeaderContainer, StyledImage } from './styles'
-import MenuIcon from '@/public/assets/svgs/MenuIcon'
 
 export const Navbars = () => {
   const matches = useMediaQuery('(min-width: 900px)')
@@ -36,16 +33,7 @@ export const Navbars = () => {
 }
 
 const Header = () => {
-  const matches = useMediaQuery('(min-width: 900px)')
-
-  const [isOpen, setIsOpen] = useState(false)
   const [isPending, setIsPending] = useState(false)
-
-  const sidebarHandler = () => setIsOpen(true)
-
-  const toggleDrawer = useCallback(() => {
-    setIsOpen(false)
-  }, [])
 
   const { activate, chainId, account } = useWeb3React()
 
@@ -80,34 +68,14 @@ const Header = () => {
             alt='MyLogo'
           />
         </Link>
-
-        {matches ? (
-          <FlexBox>
-            <Navbars />
-            <Button
-              disabled={isPending || typeof account === 'string'}
-              sx={{ margin: '30px 0 0 25px', width: 160 }}
-              onClick={onConnectWallet}
-            >
-              {account ? getAddress(account) : 'Connect Wallet'}
-              {isPending && <Loader />}
-            </Button>
-          </FlexBox>
-        ) : (
-          <>
-            <BaseButton
-              sx={{
-                width: 32,
-                minWidth: 32,
-                height: 32,
-              }}
-              onClick={sidebarHandler}
-            >
-              <MenuIcon sx={{ width: '40px', height: '40px' }} />
-            </BaseButton>
-            <Sidebar isOpen={isOpen} handleClose={toggleDrawer} />
-          </>
-        )}
+        <Button
+          disabled={isPending || typeof account === 'string'}
+          sx={{ width: 160 }}
+          onClick={onConnectWallet}
+        >
+          {account ? getAddress(account) : 'Connect Wallet'}
+          {isPending && <Loader />}
+        </Button>
       </HeaderContainer>
     </header>
   )

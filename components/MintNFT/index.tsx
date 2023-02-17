@@ -7,6 +7,7 @@ import useContract from '@/hooks/useContract'
 import Button from '../Commons/Button'
 import FlexBox from '../Commons/FlexBox'
 import Loader from '../Commons/Loader'
+import TextWrapper from '../Commons/TextWrapper'
 import { MintNFTContainer, NFTImage } from './styles'
 
 const initImgUrl = '/assets/imgs/no_img.jpeg'
@@ -104,13 +105,18 @@ const MintNFT = () => {
         <Typography variant='h3' mb={2.5}>
           NFT Info
         </Typography>
-        <Typography variant='subtitle1' mb={1}>
-          Name:
-        </Typography>
-        <Typography variant='subtitle1' mb={1}>
-          Size:
-        </Typography>
-        <Typography variant='subtitle1'>Asking Price: </Typography>
+
+        <TextWrapper
+          title='Name'
+          value={selectedFile?.name || 'undefined'}
+          isLarge
+        />
+        <TextWrapper
+          title='Size'
+          value={selectedFile?.size || 'undefined'}
+          isLarge
+        />
+        <TextWrapper title='Price' value={'0.001 5ire'} isLarge />
 
         <Button
           disabled={isUploading}

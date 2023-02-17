@@ -8,7 +8,7 @@ import getAddress from '@/utility/getAddress'
 import Loader from '@/components/Commons/Loader'
 import Button from '@/components/Commons/Button'
 import FlexBox from '@/components/Commons/FlexBox'
-import { TextWrapper } from '@/components/Commons/NFTCard'
+import TextWrapper from '@/components/Commons/TextWrapper'
 import { NFTContainer, NFTImage, NewPriceInput } from './styles'
 
 const NFTDetail = () => {
