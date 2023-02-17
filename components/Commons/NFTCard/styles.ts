@@ -7,6 +7,14 @@ export const CardContainer = styled('div')(({ theme }) => ({
   borderRadius: 12,
 }))
 
+export const NFTImageWrapper = styled('div')(({ theme }) => ({
+  width: '100%',
+  height: 300,
+  background: theme.palette.secondary.main,
+  borderTopRightRadius: 12,
+  borderTopLeftRadius: 12,
+}))
+
 export const NFTImage = styled(Image)(() => ({
   width: '100%',
   height: 300,

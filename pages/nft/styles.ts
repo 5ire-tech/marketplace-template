@@ -18,6 +18,13 @@ export const NFTContainer = styled(DefaultLayout)(({ theme }) => ({
   },
 }))
 
+export const NFTImageWrapper = styled('div')(({ theme }) => ({
+  width: '100%',
+  height: 250,
+  background: theme.palette.secondary.main,
+  borderRadius: 12,
+}))
+
 export const NFTImage = styled(Image)(() => ({
   width: '100%',
   height: 'auto',

@@ -58,7 +58,15 @@ const Header = () => {
   }
 
   return (
-    <header>
+    <header
+      style={{
+        position: 'sticky',
+        top: 0,
+        boxShadow: '0px 1px 3px 0px rgb(245 237 245)',
+        background: '#000',
+        zIndex: 100,
+      }}
+    >
       <HeaderContainer>
         <Link href='/'>
           <StyledImage

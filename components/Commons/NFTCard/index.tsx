@@ -1,6 +1,6 @@
 import useContract from '@/hooks/useContract'
 import TextWrapper from '../TextWrapper'
-import { CardContainer, NFTImage } from './styles'
+import { CardContainer, NFTImageWrapper, NFTImage } from './styles'
 
 interface NFTCardProps {
   nft: NFTProps
@@ -11,12 +11,14 @@ const NFTCard = ({ nft }: NFTCardProps) => {
 
   return (
     <CardContainer>
-      <NFTImage
-        width={300}
-        height={300}
-        src={`/nfts/${nft.tokenId}.png`}
-        alt={`nft-${nft.tokenId}`}
-      />
+      <NFTImageWrapper>
+        <NFTImage
+          width={300}
+          height={300}
+          src={`/nfts/${nft.tokenId}.png`}
+          alt={`nft-${nft.tokenId}`}
+        />
+      </NFTImageWrapper>
       <section style={{ padding: '20px 25px' }}>
         <TextWrapper title='ID' value={nft.tokenId} />
         <TextWrapper

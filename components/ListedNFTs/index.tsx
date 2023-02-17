@@ -19,7 +19,11 @@ import { ListContainer, FormControl, CardGroup } from './styles'
 
 const options = ['All', 'My NFTs', 'Own NFTs']
 
-const ListedNFTs = () => {
+interface ListedNFTsProps {
+  allNfts: NFTProps[]
+}
+
+const ListedNFTs = ({ allNfts }: ListedNFTsProps) => {
   const router = useRouter()
   const { account } = useWeb3React()
   const { nftContract } = useContract()
@@ -28,6 +32,10 @@ const ListedNFTs = () => {
   const [isLoading, setIsLoading] = useState(false)
   const [selected, setSelected] = useState(options[0])
   const [nfts, setNfts] = useState<NFTProps[]>([])
+
+  useEffect(() => {
+    setNfts(allNfts)
+  }, [allNfts])
 
   const fetchAllNfts = useCallback(async (): Promise<NFTProps[]> => {
     try {

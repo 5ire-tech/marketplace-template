@@ -44,6 +44,7 @@ const NFTDetail = () => {
       await nftContract.methods
         .resellToken(nft.tokenId, price)
         .send({ from: account })
+      toast.success('Successfully selled!')
     } catch (error: any) {
       toast.error(error?.message)
     }
@@ -59,6 +60,7 @@ const NFTDetail = () => {
       await nftContract.methods
         .createMarketSale(nft.tokenId)
         .send({ from: account, value: price })
+      toast.success('Successfully purchased!')
     } catch (error: any) {
       toast.error(error?.message)
     }

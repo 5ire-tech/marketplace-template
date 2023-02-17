@@ -1,5 +1,5 @@
 import axios from 'axios'
-import { ChangeEvent, useRef, useState } from 'react'
+import { ChangeEvent, useRef, useState, useCallback } from 'react'
 import { toast } from 'react-toastify'
 import { useWeb3React } from '@web3-react/core'
 import { Typography } from '@mui/material'
@@ -13,7 +13,11 @@ import { MintNFTContainer, NFTImage } from './styles'
 const initImgUrl = '/assets/imgs/no_img.jpeg'
 const tokenPrice = process.env.tokenPrice as string
 
-const MintNFT = () => {
+interface MintNFTProps {
+  getAllNfts: (nfts: NFTProps[]) => void
+}
+
+const MintNFT = ({ getAllNfts }: MintNFTProps) => {
   const { account } = useWeb3React()
   const { web3, nftContract } = useContract()
 
@@ -36,6 +40,16 @@ const MintNFT = () => {
   const handleUploadClick = () => {
     inputRef.current?.click()
   }
+
+  const fetchAllNfts = useCallback(async (): Promise<NFTProps[]> => {
+    try {
+      const _nfts = await nftContract.methods.fetchMarketItems().call()
+      return _nfts
+    } catch (err) {
+      return []
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
 
   const onMint = async () => {
     if (!selectedFile) {
@@ -61,6 +75,9 @@ const MintNFT = () => {
       const formData = new FormData()
       formData.append('myNFT', selectedFile, `${tokenId}.png`)
       await axios.post('/api/image', formData)
+
+      const nfts = await fetchAllNfts()
+      getAllNfts(nfts)
 
       toast.success('Mint successfully!')
       setImageUrl(initImgUrl)
@@ -106,16 +123,8 @@ const MintNFT = () => {
           NFT Info
         </Typography>
 
-        <TextWrapper
-          title='Name'
-          value={selectedFile?.name || 'undefined'}
-          isLarge
-        />
-        <TextWrapper
-          title='Size'
-          value={selectedFile?.size || 'undefined'}
-          isLarge
-        />
+        <TextWrapper title='Name' value={selectedFile?.name || '?'} isLarge />
+        <TextWrapper title='Size' value={selectedFile?.size || '?'} isLarge />
         <TextWrapper title='Price' value={'0.001 5ire'} isLarge />
 
         <Button
