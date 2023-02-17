@@ -80,7 +80,7 @@ const MintNFT = () => {
           }}
           onClick={handleUploadClick}
         >
-          <Typography variant='subtitle2' fontWeight={500} mb={1.5}>
+          <Typography variant='h3' mb={2.5}>
             Select an NFT:
           </Typography>
           <NFTImage
@@ -98,10 +98,22 @@ const MintNFT = () => {
             onChange={handleFileChange}
           />
         </FlexBox>
+      </section>
+      <section>
+        <Typography variant='h3' mb={2.5}>
+          NFT Info
+        </Typography>
+        <Typography variant='subtitle1' mb={1}>
+          Name:
+        </Typography>
+        <Typography variant='subtitle1' mb={1}>
+          Size:
+        </Typography>
+        <Typography variant='subtitle1'>Asking Price: </Typography>
 
         <Button
           disabled={isUploading}
-          sx={{ width: '100%', mt: 3 }}
+          sx={{ width: '100%', mt: 5 }}
           onClick={onMint}
         >
           Mint NFT
