@@ -1,8 +1,8 @@
 import Image from 'next/image'
 import { styled } from '@mui/material'
-import DefaultLayout from '../Commons/DefaultLayout'
+import DefaultLayout from '@/components/Commons/DefaultLayout'
 
-export const MintNFTContainer = styled(DefaultLayout)(({ theme }) => ({
+export const NFTContainer = styled(DefaultLayout)(({ theme }) => ({
   display: 'grid',
   gridTemplateColumns: 'repeat(2, 1fr)',
   alignItems: 'flex-start',
@@ -21,4 +21,8 @@ export const NFTImage = styled(Image)(() => ({
   width: '100%',
   height: 'auto',
   borderRadius: 12,
+}))
+
+export const NewPriceInput = styled('input')(() => ({
+  width: 200,
 }))

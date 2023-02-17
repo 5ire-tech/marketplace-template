@@ -72,12 +72,14 @@ const Header = () => {
   return (
     <header>
       <HeaderContainer>
-        <StyledImage
-          src='/assets/imgs/logo.png'
-          width={60}
-          height={60}
-          alt='MyLogo'
-        />
+        <Link href='/'>
+          <StyledImage
+            src='/assets/imgs/logo.png'
+            width={60}
+            height={60}
+            alt='MyLogo'
+          />
+        </Link>
 
         {matches ? (
           <FlexBox>

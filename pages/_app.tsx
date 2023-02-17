@@ -6,6 +6,7 @@ import { CacheProvider, EmotionCache } from '@emotion/react'
 import { ThemeProvider, CssBaseline, createTheme } from '@mui/material'
 import { getLibrary } from '@/utility/web3React'
 import ChainProvider from '@/provider/ChainProvider'
+import NFTContextProvider from '@/provider/NFTContextProvider'
 import Layout from '@/components/Layout'
 import 'react-toastify/dist/ReactToastify.css'
 
@@ -34,10 +35,12 @@ const MyApp = (props: MyAppProps) => {
             />
           </Head>
           <ThemeProvider theme={lightTheme}>
-            <CssBaseline />
-            <Layout>
-              <Component {...pageProps} />
-            </Layout>
+            <NFTContextProvider>
+              <CssBaseline />
+              <Layout>
+                <Component {...pageProps} />
+              </Layout>
+            </NFTContextProvider>
           </ThemeProvider>
           <ToastContainer position='top-right' autoClose={4000} />
         </ChainProvider>

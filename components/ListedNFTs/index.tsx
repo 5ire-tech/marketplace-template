@@ -1,5 +1,5 @@
 import { useState, useEffect, useCallback } from 'react'
-import Link from 'next/link'
+import { useRouter } from 'next/router'
 import {
   Box,
   InputLabel,
@@ -10,25 +10,38 @@ import {
   Theme,
 } from '@mui/material'
 import { useWeb3React } from '@web3-react/core'
+import useContract from '@/hooks/useContract'
+import useNFTContext from '@/hooks/useNFTContext'
 import FlexBox from '../Commons/FlexBox'
 import NFTCard from '../Commons/NFTCard'
-import useContract from '@/hooks/useContract'
+import Loader from '../Commons/Loader'
 import { ListContainer, FormControl, CardGroup } from './styles'
 
 const options = ['All', 'My NFTs']
 
 const ListedNFTs = () => {
+  const router = useRouter()
   const { account } = useWeb3React()
   const { nftContract } = useContract()
+  const { selectNFT } = useNFTContext()
 
+  const [isLoading, setIsLoading] = useState(false)
   const [selected, setSelected] = useState(options[0])
   const [nfts, setNfts] = useState<NFTProps[]>([])
-
-  console.log(nfts)
 
   const fetchAllNfts = useCallback(async (): Promise<NFTProps[]> => {
     try {
       const _nfts = await nftContract.methods.fetchMarketItems().call()
+      return _nfts
+    } catch (err) {
+      return []
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  const fetchMyNfts = useCallback(async (): Promise<NFTProps[]> => {
+    try {
+      const _nfts = await nftContract.methods.fetchItemsListed().call()
       return _nfts
     } catch (err) {
       return []
@@ -46,13 +59,27 @@ const ListedNFTs = () => {
       }
     })
     return () => {
-      // cancel the subscription
       isApiSubscribed = false
     }
   }, [account, fetchAllNfts])
 
-  const handleChange = (event: SelectChangeEvent) => {
+  const handleChange = async (event: SelectChangeEvent) => {
     setSelected(event.target.value as string)
+
+    let _nfts = []
+    setIsLoading(true)
+    if (event.target.value === 'All') {
+      _nfts = await fetchAllNfts()
+    } else {
+      _nfts = await fetchMyNfts()
+    }
+    setNfts(_nfts)
+    setIsLoading(false)
+  }
+
+  const nftHandler = (_nft: NFTProps) => {
+    selectNFT(_nft)
+    router.push(`/nft/${_nft.tokenId}`)
   }
 
   return (
@@ -91,17 +118,24 @@ const ListedNFTs = () => {
           </FormControl>
         </Box>
       </FlexBox>
-      <CardGroup>
-        {nfts.map((item) => (
-          <Link
-            key={`tokenId-${item.tokenId}`}
-            href={`/nft/${item.tokenId}`}
-            style={{ textDecoration: 'none' }}
-          >
-            <NFTCard nft={item} />
-          </Link>
-        ))}
-      </CardGroup>
+      {isLoading ? (
+        <FlexBox sx={{ justifyContent: 'center', width: '100%', height: 150 }}>
+          <Loader style={{ width: 48, height: 48 }} />
+        </FlexBox>
+      ) : (
+        <CardGroup>
+          {nfts.map((item) => (
+            <div
+              key={`tokenId-${item.tokenId}`}
+              aria-hidden='true'
+              style={{ cursor: 'pointer' }}
+              onClick={() => nftHandler(item)}
+            >
+              <NFTCard nft={item} />
+            </div>
+          ))}
+        </CardGroup>
+      )}
     </ListContainer>
   )
 }
