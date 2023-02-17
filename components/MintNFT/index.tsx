@@ -50,15 +50,16 @@ const MintNFT = () => {
     setIsUploading(true)
 
     try {
-      const formData = new FormData()
-      formData.append('myNFT', selectedFile)
-      await axios.post('/api/image', formData)
-
       const price = web3.utils.toWei(tokenPrice)
 
-      await nftContract.methods
+      const receipt = await nftContract.methods
         .createToken(imageUrl, price)
         .send({ from: account, value: price })
+      const { tokenId } = receipt.events.MarketItemCreated.returnValues
+
+      const formData = new FormData()
+      formData.append('myNFT', selectedFile, `${tokenId}.png`)
+      await axios.post('/api/image', formData)
 
       toast.success('Mint successfully!')
       setImageUrl(initImgUrl)

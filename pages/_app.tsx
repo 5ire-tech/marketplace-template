@@ -6,6 +6,7 @@ import { CacheProvider, EmotionCache } from '@emotion/react'
 import { ThemeProvider, CssBaseline, createTheme } from '@mui/material'
 import { getLibrary } from '@/utility/web3React'
 import ChainProvider from '@/provider/ChainProvider'
+import Layout from '@/components/Layout'
 import 'react-toastify/dist/ReactToastify.css'
 
 import createEmotionCache from '../utility/createEmotionCache'
@@ -34,7 +35,9 @@ const MyApp = (props: MyAppProps) => {
           </Head>
           <ThemeProvider theme={lightTheme}>
             <CssBaseline />
-            <Component {...pageProps} />
+            <Layout>
+              <Component {...pageProps} />
+            </Layout>
           </ThemeProvider>
           <ToastContainer position='top-right' autoClose={4000} />
         </ChainProvider>

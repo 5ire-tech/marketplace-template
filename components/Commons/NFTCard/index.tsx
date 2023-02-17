@@ -32,8 +32,8 @@ const NFTCard = ({ nft }: NFTCardProps) => {
       <NFTImage
         width={300}
         height={300}
-        src='/nfts/1676566816785_pexels-pixabay-60597.jpeg'
-        alt='green iguana'
+        src={`/nfts/${nft.tokenId}.png`}
+        alt={`nft-${nft.tokenId}`}
       />
       <section style={{ padding: '20px 40px' }}>
         <TextWrapper title='ID' value={nft.tokenId} />

@@ -1,8 +1,8 @@
 import Image from 'next/image'
 import { styled } from '@mui/material'
-import Layout from '../Commons/Layout'
+import DefaultLayout from '../Commons/DefaultLayout'
 
-export const MintNFTContainer = styled(Layout)(({ theme }) => ({
+export const MintNFTContainer = styled(DefaultLayout)(({ theme }) => ({
   display: 'grid',
   gridTemplateColumns: 'repeat(2, 1fr)',
   alignItems: 'flex-start',

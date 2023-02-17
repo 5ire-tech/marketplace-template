@@ -1,7 +1,7 @@
 import { FormControl as BaseFormControl, styled } from '@mui/material'
-import Layout from '../Commons/Layout'
+import DefaultLayout from '../Commons/DefaultLayout'
 
-export const ListContainer = styled(Layout)(() => ({
+export const ListContainer = styled(DefaultLayout)(() => ({
   flexDirection: 'column',
   alignItems: 'flex-start',
   marginTop: 80,

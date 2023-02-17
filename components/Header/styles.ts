@@ -1,8 +1,8 @@
 import Image from 'next/image'
 import { Drawer, styled } from '@mui/material'
-import Layout from '../Commons/Layout'
+import DefaultLayout from '../Commons/DefaultLayout'
 
-export const HeaderContainer = styled(Layout)(({ theme }) => ({
+export const HeaderContainer = styled(DefaultLayout)(({ theme }) => ({
   justifyContent: 'space-between',
   height: 100,
   ul: {

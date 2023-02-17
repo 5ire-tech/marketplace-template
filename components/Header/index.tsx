@@ -22,7 +22,7 @@ export const Navbars = () => {
         <li key={nav.title}>
           <Link href={nav.link}>
             <Typography
-              variant='body1'
+              variant='subtitle2'
               fontWeight={300}
               color={matches ? 'text.primary' : 'text.secondary'}
             >

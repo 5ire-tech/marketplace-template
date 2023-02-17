@@ -3,7 +3,7 @@ import { styled } from '@mui/material'
 const Loader = styled('div')<{ color?: string }>`
   width: 18px;
   height: 18px;
-  margin-left: 4px;
+  margin-left: 10px;
   border: ${({ color }) => `2px solid ${color || '#fff'}`};
   border-bottom-color: transparent;
   border-radius: 50%;

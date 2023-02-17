@@ -18,7 +18,7 @@ const readFile = (
   if (saveLocally) {
     options.uploadDir = path.join(process.cwd(), '/public/nfts')
     options.filename = (name, ext, _path) => {
-      return Date.now().toString() + '_' + _path.originalFilename
+      return _path.originalFilename || ''
     }
   }
 

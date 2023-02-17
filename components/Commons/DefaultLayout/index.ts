@@ -1,7 +1,7 @@
 import { styled } from '@mui/material'
 import FlexBox from '../FlexBox'
 
-const Layout = styled(FlexBox)(({ theme }) => ({
+const DefaultLayout = styled(FlexBox)(({ theme }) => ({
   padding: '0 160px',
   [theme.breakpoints.down('xl')]: {
     padding: '0 120px',
@@ -17,4 +17,4 @@ const Layout = styled(FlexBox)(({ theme }) => ({
   },
 }))
 
-export default Layout
+export default DefaultLayout

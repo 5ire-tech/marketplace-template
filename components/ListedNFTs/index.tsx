@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react'
+import Link from 'next/link'
 import {
   Box,
   InputLabel,
@@ -22,6 +23,8 @@ const ListedNFTs = () => {
 
   const [selected, setSelected] = useState(options[0])
   const [nfts, setNfts] = useState<NFTProps[]>([])
+
+  console.log(nfts)
 
   const fetchAllNfts = useCallback(async (): Promise<NFTProps[]> => {
     try {
@@ -90,7 +93,13 @@ const ListedNFTs = () => {
       </FlexBox>
       <CardGroup>
         {nfts.map((item) => (
-          <NFTCard key={`tokenId-${item.tokenId}`} nft={item} />
+          <Link
+            key={`tokenId-${item.tokenId}`}
+            href={`/nft/${item.tokenId}`}
+            style={{ textDecoration: 'none' }}
+          >
+            <NFTCard nft={item} />
+          </Link>
         ))}
       </CardGroup>
     </ListContainer>
