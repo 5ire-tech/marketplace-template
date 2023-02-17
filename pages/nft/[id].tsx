@@ -1,4 +1,4 @@
-import { useState } from 'react'
+import { useState, ChangeEvent, useEffect } from 'react'
 import { toast } from 'react-toastify'
 import { Typography } from '@mui/material'
 import { useWeb3React } from '@web3-react/core'
@@ -11,24 +11,39 @@ import FlexBox from '@/components/Commons/FlexBox'
 import { TextWrapper } from '@/components/Commons/NFTCard'
 import { NFTContainer, NFTImage, NewPriceInput } from './styles'
 
-const tokenPrice = process.env.tokenPrice as string
-
 const NFTDetail = () => {
   const { account } = useWeb3React()
   const { nft } = useNFTContext()
   const { web3, nftContract } = useContract()
 
   const [isPending, setIsPending] = useState(false)
+  const [newPrice, setNewPrice] = useState('0')
+  const [isPossible2Sell, setIsPossible2Sell] = useState(false)
+
+  useEffect(() => {
+    if (nft) {
+      setNewPrice(web3.utils.fromWei(nft.price.toString()))
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [nft])
+
+  useEffect(() => {
+    if (account?.toLowerCase() === nft?.owner.toLowerCase()) {
+      setIsPossible2Sell(true)
+    } else {
+      setIsPossible2Sell(false)
+    }
+  }, [account, nft?.owner])
 
   const OnSell = async () => {
     if (!nft || !account) return
 
     setIsPending(true)
     try {
-      const price = web3.utils.toWei(tokenPrice)
+      const price = web3.utils.toWei(newPrice)
       await nftContract.methods
-        .resellToken(nft.tokenId)
-        .send({ from: account, value: price })
+        .resellToken(nft.tokenId, price)
+        .send({ from: account })
     } catch (error: any) {
       toast.error(error?.message)
     }
@@ -40,7 +55,7 @@ const NFTDetail = () => {
 
     setIsPending(true)
     try {
-      const price = web3.utils.toWei(tokenPrice)
+      const price = web3.utils.toWei(newPrice)
       await nftContract.methods
         .createMarketSale(nft.tokenId)
         .send({ from: account, value: price })
@@ -48,6 +63,10 @@ const NFTDetail = () => {
       toast.error(error?.message)
     }
     setIsPending(false)
+  }
+
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setNewPrice(e.target.value)
   }
 
   if (!nft) {
@@ -78,23 +97,27 @@ const NFTDetail = () => {
           isLarge
           value={`${web3.utils.fromWei(nft.price?.toString())} 5ire`}
         />
-        <FlexBox sx={{ mb: '8px' }}>
-          <Typography
-            variant='subtitle2'
-            color='text.primary'
-            sx={{ width: 110 }}
-          >
-            New Price:
-          </Typography>
-          <NewPriceInput value={12} />
-        </FlexBox>
-        <TextWrapper title='State' value={nft.sold} isLarge />
+        {isPossible2Sell && (
+          <FlexBox sx={{ mb: '8px' }}>
+            <Typography
+              variant='subtitle2'
+              color='text.primary'
+              sx={{ width: 110 }}
+            >
+              New Price:
+            </Typography>
+            <NewPriceInput value={newPrice} onChange={handleChange} />
+            <Typography variant='subtitle2' color='text.primary'>
+              &nbsp;5ire
+            </Typography>
+          </FlexBox>
+        )}
         <Button
           sx={{ width: 160, mt: 4 }}
-          disabled={isPending}
-          onClick={
-            account?.toLowerCase() === nft.owner.toLowerCase() ? OnSell : onBuy
+          disabled={
+            isPending || account?.toLowerCase() === nft.seller.toLowerCase()
           }
+          onClick={isPossible2Sell ? OnSell : onBuy}
         >
           {account?.toLowerCase() === nft.owner.toLowerCase() ? 'Sell' : 'Buy'}{' '}
           NFT

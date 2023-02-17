@@ -17,7 +17,7 @@ import NFTCard from '../Commons/NFTCard'
 import Loader from '../Commons/Loader'
 import { ListContainer, FormControl, CardGroup } from './styles'
 
-const options = ['All', 'My NFTs']
+const options = ['All', 'My NFTs', 'Own NFTs']
 
 const ListedNFTs = () => {
   const router = useRouter()
@@ -49,6 +49,16 @@ const ListedNFTs = () => {
     // eslint-disable-next-line react-hooks/exhaustive-deps
   }, [])
 
+  const fetchMyOwnNfts = useCallback(async (): Promise<NFTProps[]> => {
+    try {
+      const _nfts = await nftContract.methods.fetchMyNfts().call()
+      return _nfts
+    } catch (err) {
+      return []
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
   useEffect(() => {
     if (!account) return
 
@@ -70,8 +80,10 @@ const ListedNFTs = () => {
     setIsLoading(true)
     if (event.target.value === 'All') {
       _nfts = await fetchAllNfts()
-    } else {
+    } else if (event.target.value === 'My NFTs') {
       _nfts = await fetchMyNfts()
+    } else {
+      _nfts = await fetchMyOwnNfts()
     }
     setNfts(_nfts)
     setIsLoading(false)

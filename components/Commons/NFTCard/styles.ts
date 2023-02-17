@@ -8,8 +8,8 @@ export const CardContainer = styled('div')(({ theme }) => ({
 }))
 
 export const NFTImage = styled(Image)(() => ({
-  width: 300,
-  height: 'auto',
+  width: '100%',
+  height: 300,
   borderTopRightRadius: 12,
   borderTopLeftRadius: 12,
 }))

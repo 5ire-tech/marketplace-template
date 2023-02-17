@@ -8,6 +8,7 @@ export const NFTContainer = styled(DefaultLayout)(({ theme }) => ({
   alignItems: 'flex-start',
   gap: 180,
   marginTop: 60,
+  marginBottom: 60,
   [theme.breakpoints.down('lg')]: {
     gap: 120,
   },
@@ -23,6 +24,10 @@ export const NFTImage = styled(Image)(() => ({
   borderRadius: 12,
 }))
 
-export const NewPriceInput = styled('input')(() => ({
-  width: 200,
+export const NewPriceInput = styled('input')(({ theme }) => ({
+  width: 100,
+  padding: '6px 12px',
+  background: 'transparent',
+  border: `1px solid ${theme.palette.text.primary}`,
+  color: theme.palette.text.primary,
 }))

@@ -2,9 +2,10 @@ import { ethers } from 'ethers'
 import { InjectedConnector } from '@web3-react/injected-connector'
 
 const POLLING_INTERVAL = 12000
+const chainId = process.env.networkId as string
 
 export const injected = new InjectedConnector({
-  supportedChainIds: [997],
+  supportedChainIds: [Number(chainId)],
 })
 
 export const getLibrary = (provider: any): ethers.providers.Web3Provider => {

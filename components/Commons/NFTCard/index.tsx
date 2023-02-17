@@ -1,5 +1,4 @@
 import { Typography } from '@mui/material'
-import getAddress from '@/utility/getAddress'
 import useContract from '@/hooks/useContract'
 import FlexBox from '../FlexBox'
 import { CardContainer, NFTImage } from './styles'
@@ -44,15 +43,12 @@ const NFTCard = ({ nft }: NFTCardProps) => {
         src={`/nfts/${nft.tokenId}.png`}
         alt={`nft-${nft.tokenId}`}
       />
-      <section style={{ padding: '20px 40px' }}>
+      <section style={{ padding: '20px 25px' }}>
         <TextWrapper title='ID' value={nft.tokenId} />
-        <TextWrapper title='Owner' value={getAddress(nft.owner)} />
-        <TextWrapper title='Seller' value={getAddress(nft.seller)} />
         <TextWrapper
           title='Price'
           value={`${web3.utils.fromWei(nft.price?.toString())} 5ire`}
         />
-        <TextWrapper title='State' value={nft.sold} />
       </section>
     </CardContainer>
   )

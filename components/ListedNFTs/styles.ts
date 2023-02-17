@@ -5,6 +5,7 @@ export const ListContainer = styled(DefaultLayout)(() => ({
   flexDirection: 'column',
   alignItems: 'flex-start',
   marginTop: 80,
+  marginBottom: 80,
 }))
 
 export const FormControl = styled(BaseFormControl)(({ theme }) => ({
