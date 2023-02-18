@@ -49,8 +49,13 @@ const ListedNFTs = ({ allNfts }: ListedNFTsProps) => {
 
   const fetchMyNfts = useCallback(async (): Promise<NFTProps[]> => {
     try {
-      const _nfts = await nftContract.methods.fetchItemsListed().call()
-      return _nfts
+      const _nfts: NFTProps[] = await nftContract.methods
+        .fetchItemsListed()
+        .call()
+      const myNfts = _nfts.filter(
+        (_nft) => _nft.owner?.toLowerCase() === account?.toLowerCase(),
+      )
+      return myNfts
     } catch (err) {
       return []
     }

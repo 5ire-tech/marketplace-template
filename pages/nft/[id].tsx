@@ -44,7 +44,7 @@ const NFTDetail = () => {
       await nftContract.methods
         .resellToken(nft.tokenId, price)
         .send({ from: account })
-      toast.success('Successfully selled!')
+      toast.success('Successfully sold!')
     } catch (error: any) {
       toast.error(error?.message)
     }
@@ -121,7 +121,7 @@ const NFTDetail = () => {
           }
           onClick={isPossible2Sell ? OnSell : onBuy}
         >
-          {account?.toLowerCase() === nft.owner.toLowerCase() ? 'Sell' : 'Buy'}{' '}
+          {account?.toLowerCase() === nft.owner.toLowerCase() ? 'List' : 'Buy'}{' '}
           NFT
           {isPending && <Loader />}
         </Button>
