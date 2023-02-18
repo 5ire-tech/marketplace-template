@@ -13,6 +13,11 @@ const StyledButton = styled(Button)(({ theme }) => ({
   ':hover': {
     background: theme.palette.orange.main,
   },
+
+  ':disabled': {
+    color: theme.palette.text.primary,
+    cursor: 'not-allowed',
+  },
 }))
 
 export default StyledButton

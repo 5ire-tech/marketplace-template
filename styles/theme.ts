@@ -60,8 +60,8 @@ const theme = createTheme({
       fontWeight: 700,
     },
     subtitle1: {
-      fontSize: 20,
-      lineHeight: '50px',
+      fontSize: 18,
+      lineHeight: 1.4,
       fontWeight: 400,
     },
     subtitle2: {
