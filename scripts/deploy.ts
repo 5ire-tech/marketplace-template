@@ -14,12 +14,12 @@ async function main() {
   // await hre.run('compile');
 
   // We get the contract to deploy
-  const marketplace = await ethers.getContractFactory('NftMarketplace')
+  const marketplace = await ethers.getContractFactory('NFTMarketplace')
   const marketplaceContract = await marketplace.deploy()
 
   await marketplaceContract.deployed()
 
-  console.log('Voting contract deployed to:', marketplaceContract.address)
+  console.log('Marketplace contract deployed to:', marketplaceContract.address)
 }
 
 // We recommend this pattern to be able to use async/await everywhere

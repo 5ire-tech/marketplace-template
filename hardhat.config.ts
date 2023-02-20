@@ -2,13 +2,14 @@
 import { HardhatUserConfig } from "hardhat/config";
 import "@nomiclabs/hardhat-waffle";
 
-
+import * as dotenv from 'dotenv';
+dotenv.config()
 
 const config: HardhatUserConfig = {
   solidity: {
     compilers: [
       {
-        version: "0.8.0",
+        version: "0.8.1",
         settings: {
           optimizer: {
             enabled: true,
@@ -21,17 +22,10 @@ const config: HardhatUserConfig = {
     thunder_testnet: {
       url: "https://rpc-testnet.5ire.network",
       accounts:
-        process.env.privateKey !== undefined ? [process.env.PRIVATE_KEY as string] : [],
+        process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY as string] : [],
       gasPrice: 8000000000,
       allowUnlimitedContractSize: true,
     },
-    // bsc_testnet: {
-    //   url:"https://data-seed-prebsc-1-s2.binance.org:8545/",
-    //   chainId: 97,
-    //   accounts: 
-    //     process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY] : [],
-
-    // }
   },
 };
 
