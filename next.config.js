@@ -2,7 +2,7 @@
 const nextConfig = {
   reactStrictMode: true,
   env: {
-    contractAddress: '0x5BAC7e2079480CD8027c4f905205E13E5eaBfC6c',
+    contractAddress: '0x1A08b8e1101840740Ec98bc7EBDf4fB538cc52F9',
     tokenPrice: '0.00025',
     // 5ire Thunder chainId
     networkId: '997',
