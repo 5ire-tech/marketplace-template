@@ -12,7 +12,7 @@ Hardhat | Ethers | Typescript | Nextjs to compile and test a Marketplace Smart C
 ### Smart contract
 1. Compile marketplace NFT smart contract 
     ```
-    + Set PRIVATE_KEY in .env file
+    + Set PRIVATE_KEY in .env file ( Create new .env file , get configuration from .env.example)
 
     + npx hardhat compile
 2. Testing contract
@@ -24,10 +24,12 @@ Hardhat | Ethers | Typescript | Nextjs to compile and test a Marketplace Smart C
     ```
     Contract address will be shown in the terminal:
     ```
-    Voting contract deployed to: 0x2a2c8469Ff26B7f91aAB93Bb5Dc668f6D2804403
+    Marketplace contract deployed to: 0x2a2c8469Ff26B7f91aAB93Bb5Dc668f6D2804403
     ```
 
 ### Frontend
+
+0. Add 5ire Thunder testnet in Metamask manually [Link](https://docs.5ire.org/docs/Wallets/MetaMask)
 1. Install required dependencies 
     ```
     yarn install
