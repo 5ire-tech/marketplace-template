@@ -1,4 +1,4 @@
-import { useState, ChangeEvent, useEffect } from 'react'
+import { useState, useEffect } from 'react'
 import { toast } from 'react-toastify'
 import { Typography } from '@mui/material'
 import { useWeb3React } from '@web3-react/core'
@@ -7,9 +7,8 @@ import useContract from '@/hooks/useContract'
 import getAddress from '@/utility/getAddress'
 import Loader from '@/components/Commons/Loader'
 import Button from '@/components/Commons/Button'
-import FlexBox from '@/components/Commons/FlexBox'
 import TextWrapper from '@/components/Commons/TextWrapper'
-import { NFTContainer, NFTImage, NewPriceInput } from './styles'
+import { NFTContainer, NFTImage } from './styles'
 
 const NFTDetail = () => {
   const { account } = useWeb3React()
@@ -41,9 +40,10 @@ const NFTDetail = () => {
     setIsPending(true)
     try {
       const price = web3.utils.toWei(newPrice)
+
       await nftContract.methods
         .resellToken(nft.tokenId, price)
-        .send({ from: account })
+        .send({ from: account, value: price })
       toast.success('Successfully sold!')
     } catch (error: any) {
       toast.error(error?.message)
@@ -67,9 +67,9 @@ const NFTDetail = () => {
     setIsPending(false)
   }
 
-  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-    setNewPrice(e.target.value)
-  }
+  // const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+  //   setNewPrice(e.target.value)
+  // }
 
   if (!nft) {
     return (
@@ -100,6 +100,13 @@ const NFTDetail = () => {
           value={`${web3.utils.fromWei(nft.price?.toString())} 5ire`}
         />
         {isPossible2Sell && (
+          <TextWrapper
+            title='Listing Price'
+            isLarge
+            value={`${web3.utils.fromWei(nft.price?.toString())} 5ire`}
+          />
+        )}
+        {/* {isPossible2Sell && (
           <FlexBox sx={{ mb: '8px' }}>
             <Typography
               variant='subtitle2'
@@ -108,12 +115,12 @@ const NFTDetail = () => {
             >
               New Price:
             </Typography>
-            <NewPriceInput value={newPrice} onChange={handleChange} />
+            <NewPriceInput disabled value={newPrice} onChange={handleChange} />
             <Typography variant='subtitle2' color='text.primary'>
               &nbsp;5ire
             </Typography>
           </FlexBox>
-        )}
+        )} */}
         <Button
           sx={{ width: 160, mt: 4 }}
           disabled={

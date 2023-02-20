@@ -125,7 +125,7 @@ const MintNFT = ({ getAllNfts }: MintNFTProps) => {
 
         <TextWrapper title='Name' value={selectedFile?.name || '?'} isLarge />
         <TextWrapper title='Size' value={selectedFile?.size || '?'} isLarge />
-        <TextWrapper title='Price' value={'0.001 5ire'} isLarge />
+        <TextWrapper title='Price' value={`${tokenPrice} 5ire`} isLarge />
 
         <Button
           disabled={isUploading}

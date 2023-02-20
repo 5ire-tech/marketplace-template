@@ -2,8 +2,8 @@
 const nextConfig = {
   reactStrictMode: true,
   env: {
-    contractAddress: '0x66608649da79cfBB670a77a005ED6277BA199a8F',
-    tokenPrice: '0.001',
+    contractAddress: '0x5BAC7e2079480CD8027c4f905205E13E5eaBfC6c',
+    tokenPrice: '0.00025',
     networkId: '5',
   },
 }
