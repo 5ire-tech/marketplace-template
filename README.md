@@ -33,7 +33,7 @@ Hardhat | Ethers | Typescript | Nextjs to compile and test a Marketplace Smart C
 1. Install required dependencies 
     ```
     yarn install
-2. Set marketplace contract address that deployed in [next.config.js](https://github.com/5ire-tech/marketplace-template/blob/master/.env.development#L2)
+2. Set marketplace contract address that deployed in [env.development](https://github.com/5ire-tech/marketplace-template/blob/master/.env.development#L2)
 3. Run project
     ```
     yarn dev
