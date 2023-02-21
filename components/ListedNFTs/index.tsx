@@ -1,4 +1,5 @@
 import { useState, useEffect, useCallback } from 'react'
+import { toast } from 'react-toastify'
 import { useRouter } from 'next/router'
 import {
   Box,
@@ -41,7 +42,22 @@ const ListedNFTs = ({ allNfts }: ListedNFTsProps) => {
     try {
       const _nfts = await nftContract.methods.fetchMarketItems().call()
       return _nfts
-    } catch (err) {
+    } catch (err: any) {
+      toast.error(err?.message || err)
+      return []
+    }
+    // eslint-disable-next-line react-hooks/exhaustive-deps
+  }, [])
+
+  const fetchListedNfts = useCallback(async (): Promise<NFTProps[]> => {
+    try {
+      const _nfts = await nftContract.methods.fetchItemsListed().call()
+      // const myNfts = _nfts.filter(
+      //   (_nft) => _nft.owner?.toLowerCase() === account?.toLowerCase(),
+      // )
+      return _nfts
+    } catch (err: any) {
+      toast.error(err?.message || err)
       return []
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -49,24 +65,10 @@ const ListedNFTs = ({ allNfts }: ListedNFTsProps) => {
 
   const fetchMyNfts = useCallback(async (): Promise<NFTProps[]> => {
     try {
-      const _nfts: NFTProps[] = await nftContract.methods
-        .fetchItemsListed()
-        .call()
-      const myNfts = _nfts.filter(
-        (_nft) => _nft.owner?.toLowerCase() === account?.toLowerCase(),
-      )
-      return myNfts
-    } catch (err) {
-      return []
-    }
-    // eslint-disable-next-line react-hooks/exhaustive-deps
-  }, [])
-
-  const fetchMyOwnNfts = useCallback(async (): Promise<NFTProps[]> => {
-    try {
-      const _nfts = await nftContract.methods.fetchMyNfts().call()
+      const _nfts = await nftContract.methods.fetchMyNFTs().call()
       return _nfts
-    } catch (err) {
+    } catch (err: any) {
+      toast.error(err?.message || err)
       return []
     }
     // eslint-disable-next-line react-hooks/exhaustive-deps
@@ -96,7 +98,7 @@ const ListedNFTs = ({ allNfts }: ListedNFTsProps) => {
     } else if (event.target.value === 'My NFTs') {
       _nfts = await fetchMyNfts()
     } else {
-      _nfts = await fetchMyOwnNfts()
+      _nfts = await fetchListedNfts()
     }
     setNfts(_nfts)
     setIsLoading(false)
