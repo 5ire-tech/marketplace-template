@@ -1,14 +1,15 @@
-import { useState, useEffect } from 'react'
+import { useState, useEffect, ChangeEvent } from 'react'
 import { toast } from 'react-toastify'
 import { Typography } from '@mui/material'
 import { useWeb3React } from '@web3-react/core'
 import useNFTContext from '@/hooks/useNFTContext'
 import useContract from '@/hooks/useContract'
 import getAddress from '@/utility/getAddress'
+import FlexBox from '@/components/Commons/FlexBox'
 import Loader from '@/components/Commons/Loader'
 import Button from '@/components/Commons/Button'
 import TextWrapper from '@/components/Commons/TextWrapper'
-import { NFTContainer, NFTImage } from './styles'
+import { NFTContainer, NFTImage, NewPriceInput } from './styles'
 
 const NFTDetail = () => {
   const { account } = useWeb3React()
@@ -67,9 +68,9 @@ const NFTDetail = () => {
     setIsPending(false)
   }
 
-  // const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
-  //   setNewPrice(e.target.value)
-  // }
+  const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
+    setNewPrice(e.target.value)
+  }
 
   if (!nft) {
     return (
@@ -100,27 +101,20 @@ const NFTDetail = () => {
           value={`${web3.utils.fromWei(nft.price?.toString())} 5ire`}
         />
         {isPossible2Sell && (
-          <TextWrapper
-            title='Listing Price'
-            isLarge
-            value={`${web3.utils.fromWei(nft.price?.toString())} 5ire`}
-          />
-        )}
-        {/* {isPossible2Sell && (
           <FlexBox sx={{ mb: '8px' }}>
             <Typography
               variant='subtitle2'
               color='text.primary'
               sx={{ width: 110 }}
             >
-              New Price:
+              Listing Price:
             </Typography>
-            <NewPriceInput disabled value={newPrice} onChange={handleChange} />
+            <NewPriceInput value={newPrice} onChange={handleChange} />
             <Typography variant='subtitle2' color='text.primary'>
               &nbsp;5ire
             </Typography>
           </FlexBox>
-        )} */}
+        )}
         <Button
           sx={{ width: 160, mt: 4 }}
           disabled={

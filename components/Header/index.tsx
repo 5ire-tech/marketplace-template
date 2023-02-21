@@ -44,8 +44,13 @@ const Header = () => {
       try {
         await activate(injected)
 
-        if (chainId && chainId.toString() !== process.env.networkId) {
-          toast.error(`Switch network to ${process.env.networkId}.`)
+        if (
+          chainId &&
+          chainId.toString() !== process.env.NEXT_PUBLIC_NETWORK_ID
+        ) {
+          toast.error(
+            `Switch network to ${process.env.NEXT_PUBLIC_NETWORK_ID}.`,
+          )
         }
       } catch (error) {
         if (error instanceof Error) toast.error(error.message)

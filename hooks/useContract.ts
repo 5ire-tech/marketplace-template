@@ -3,7 +3,8 @@ import { AbiItem } from 'web3-utils'
 import abi from '../contracts/abi.json'
 
 const contractAddress =
-  process.env.contractAddress || '0x25cbCfc1262A436B9757816e60EBc6648B6eBBCB'
+  process.env.NEXT_PUBLIC_CONTRACT_ADDRESS ||
+  '0x1A08b8e1101840740Ec98bc7EBDf4fB538cc52F9'
 
 const useContract = () => {
   const web3 = new Web3(Web3.givenProvider)

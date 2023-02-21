@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react'
 import { toast } from 'react-toastify'
-import { useWeb3React } from '@web3-react/core'
+import { useWeb3React, UnsupportedChainIdError } from '@web3-react/core'
 import { injected } from '@/utility/web3React'
 
 interface ChainProviderProps {
@@ -8,7 +8,7 @@ interface ChainProviderProps {
 }
 
 const ChainProvider = ({ children }: ChainProviderProps) => {
-  const { activate, setError, chainId, active } = useWeb3React()
+  const { activate, setError, chainId, active, error } = useWeb3React()
 
   useEffect(() => {
     const loadInjectedWallet = async () => {
@@ -27,10 +27,13 @@ const ChainProvider = ({ children }: ChainProviderProps) => {
   }, [activate, setError])
 
   useEffect(() => {
-    if (active && chainId && chainId.toString() !== process.env.networkId) {
-      toast.error(`Switch  network to ${process.env.networkId}.`)
+    if (
+      error instanceof UnsupportedChainIdError ||
+      (chainId && chainId.toString() !== process.env.NEXT_PUBLIC_NETWORK_ID)
+    ) {
+      toast.error(`Switch  network to ${process.env.NEXT_PUBLIC_NETWORK_ID}.`)
     }
-  }, [active, chainId])
+  }, [active, chainId, error])
 
   return <>{children}</>
 }

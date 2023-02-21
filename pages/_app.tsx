@@ -25,27 +25,27 @@ const MyApp = (props: MyAppProps) => {
   const { Component, emotionCache = clientSideEmotionCache, pageProps } = props
 
   return (
-    <CacheProvider value={emotionCache}>
-      <Web3ReactProvider getLibrary={getLibrary}>
-        <ChainProvider>
-          <Head>
-            <meta
-              name='viewport'
-              content='initial-scale=1, width=device-width'
-            />
-          </Head>
-          <ThemeProvider theme={lightTheme}>
+    <>
+      <Head>
+        <title>NFT Marketplace</title>
+        <meta name='viewport' content='initial-scale=1, width=device-width' />
+      </Head>
+      <CacheProvider value={emotionCache}>
+        <Web3ReactProvider getLibrary={getLibrary}>
+          <ChainProvider>
             <NFTContextProvider>
-              <CssBaseline />
-              <Layout>
-                <Component {...pageProps} />
-              </Layout>
+              <ThemeProvider theme={lightTheme}>
+                <CssBaseline />
+                <Layout>
+                  <Component {...pageProps} />
+                </Layout>
+              </ThemeProvider>
             </NFTContextProvider>
-          </ThemeProvider>
-          <ToastContainer position='top-right' autoClose={4000} />
-        </ChainProvider>
-      </Web3ReactProvider>
-    </CacheProvider>
+          </ChainProvider>
+        </Web3ReactProvider>
+      </CacheProvider>
+      <ToastContainer position='top-right' autoClose={4000} />
+    </>
   )
 }
 

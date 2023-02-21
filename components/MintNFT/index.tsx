@@ -11,7 +11,7 @@ import TextWrapper from '../Commons/TextWrapper'
 import { MintNFTContainer, NFTImage } from './styles'
 
 const initImgUrl = '/assets/imgs/no_img.jpeg'
-const tokenPrice = process.env.tokenPrice as string
+const tokenPrice = process.env.NEXT_PUBLIC_TOKEN_PRICE as string
 
 interface MintNFTProps {
   getAllNfts: (nfts: NFTProps[]) => void
