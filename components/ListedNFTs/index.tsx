@@ -17,7 +17,7 @@ import NFTCard from '../Commons/NFTCard'
 import Loader from '../Commons/Loader'
 import { ListContainer, FormControl, CardGroup } from './styles'
 
-const options = ['All', 'My NFTs', 'Own NFTs']
+const options = ['All', 'My NFTs', 'Listed NFTs']
 
 interface ListedNFTsProps {
   allNfts: NFTProps[]
