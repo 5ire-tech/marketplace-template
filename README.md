@@ -24,7 +24,7 @@ Hardhat | Ethers | Typescript | Nextjs to compile and test a Marketplace Smart C
     ```
     Contract address will be shown in the terminal:
     ```
-    Marketplace contract deployed to: 0x2a2c8469Ff26B7f91aAB93Bb5Dc668f6D2804403
+    Marketplace contract deployed to: 0xE1F9b6ba798AB0830703Fc964A5FdC4B7d181D1B
     ```
 
 ### Frontend

@@ -18,7 +18,7 @@ import NFTCard from '../Commons/NFTCard'
 import Loader from '../Commons/Loader'
 import { ListContainer, FormControl, CardGroup } from './styles'
 
-const options = ['All', 'My NFTs', 'Listed NFTs']
+const options = ['All', 'My NFTs']
 
 interface ListedNFTsProps {
   allNfts: NFTProps[]
@@ -65,7 +65,7 @@ const ListedNFTs = ({ allNfts }: ListedNFTsProps) => {
 
   const fetchMyNfts = useCallback(async (): Promise<NFTProps[]> => {
     try {
-      const _nfts = await nftContract.methods.fetchMyNFTs().call()
+      const _nfts = await nftContract.methods.fetchItemsListed().call()
       return _nfts
     } catch (err: any) {
       toast.error(err?.message || err)
