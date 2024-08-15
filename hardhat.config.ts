@@ -20,7 +20,7 @@ const config: HardhatUserConfig = {
   },
   networks: {
     thunder_testnet: {
-      url: "https://rpc-testnet.5ire.network",
+      url: "https://rpc.testnet.5ire.network",
       accounts:
         process.env.PRIVATE_KEY !== undefined ? [process.env.PRIVATE_KEY as string] : [],
       gasPrice: 8000000000,
